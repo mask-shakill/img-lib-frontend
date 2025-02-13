@@ -59,13 +59,16 @@ export default function Home() {
     const loadInitialImages = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://127.0.0.1:8000/search", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ query: "nature", is_first_load: true }),
-        });
+        const response = await fetch(
+          "https://img-lib-backend.vercel.app/search",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query: "nature", is_first_load: true }),
+          }
+        );
 
         const data = await response.json();
         if (!response.ok) {
@@ -89,13 +92,16 @@ export default function Home() {
     setError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query, is_first_load: false }),
-      });
+      const response = await fetch(
+        "https://img-lib-backend.vercel.app/search",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ query, is_first_load: false }),
+        }
+      );
 
       const data = await response.json();
       if (!response.ok) {
@@ -119,7 +125,7 @@ export default function Home() {
   const handleDownload = (size: string) => {
     if (selectedImage !== null) {
       window.open(
-        `http://127.0.0.1:8000/download/${selectedImage}?size=${size}`,
+        `https://img-lib-backend.vercel.app/download/${selectedImage}?size=${size}`,
         "_blank"
       );
       setShowModal(false);
