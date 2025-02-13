@@ -4,6 +4,7 @@
 import { useState, useEffect } from "react";
 import { Search, Download, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ImageSize {
   key: string;
@@ -136,9 +137,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-6 text-pink-700">
-          PlanPost AI Photos
-        </h1>
+        <Link href={"/"}>
+          <h1 className="text-3xl font-bold mb-6 text-pink-700">Free Image</h1>
+        </Link>
 
         <div className="flex gap-2 mb-8">
           <div className="relative flex-1">
