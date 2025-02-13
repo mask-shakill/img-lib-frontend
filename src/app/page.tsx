@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import SearchBar from "../components/SearchBar";
@@ -15,6 +16,7 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
 
+  // Fetch initial images
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -29,17 +31,33 @@ export default function Home() {
     })();
   }, []);
 
+  // Fix: Ensure search updates images
+  const searchImages = async () => {
+    if (!query.trim()) return;
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await fetchImages(query, false);
+      setImages(data.photos || []);
+    } catch {
+      setError("Error fetching images. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4">
-        <Link href={"/"}>
+        <Link href="/">
           <h1 className="text-3xl font-bold mb-6 text-pink-700">Free Image</h1>
         </Link>
 
         <SearchBar
           query={query}
           setQuery={setQuery}
-          searchImages={() => fetchImages(query, false)}
+          searchImages={searchImages}
           loading={loading}
         />
 
